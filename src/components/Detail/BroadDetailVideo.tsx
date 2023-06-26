@@ -15,8 +15,8 @@ const BroadDetailVideo = ({ streamer }: IBroadDetail) => {
         controls
         playing
         muted
-        width="100%"
-        height="100%"
+        width="95%"
+        height="95%"
       />
     </div>
   );

@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
-import React, { useState } from 'react';
+import { inRange } from 'lodash';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../shared/api';
 import ModalPortal from '../shared/ModalPortal';
@@ -13,6 +14,14 @@ const HeaderComponent = () => {
   const [paymentModal, setPaymentModal] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const navigate = useNavigate();
+
+  const accessValid = Cookies.get('accesstoken');
+
+  useEffect(() => {
+    if (accessValid !== undefined) {
+      setIsLogin(true);
+    }
+  }, []);
 
   const logoutHandle = async () => {
     try {

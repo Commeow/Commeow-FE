@@ -299,7 +299,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
   return (
     <>
       <div
-        className="p-4 relative border border-gray-300 rounded-lg ml-2"
+        className="p-4 relative border border-gray-300 rounded-lg ml-2 bg-white"
         ref={dropdownRef}
       >
         <h1 className="text-2xl font-bold mb-4">채팅</h1>
@@ -307,7 +307,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
 
         <div className="h-[50vh]" style={{ overflow: 'overlay' }}>
           <div
-            className="h-full w-[300px] overflow-auto"
+            className="h-full w-[320px] overflow-auto"
             ref={chatContainerRef}
           >
             {messages.map((msg) =>
@@ -331,7 +331,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
             )}
           </div>
         </div>
-        <div className="flex w-full mt-2">
+        <div className="flex w-11/12 mt-2 absolute bottom-7">
           <div className="relative flex justify-center items-center w-full">
             <input
               type="text"

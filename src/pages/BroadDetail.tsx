@@ -41,11 +41,12 @@ const BroadDetail = () => {
 
   return (
     <div>
-      <div className="flex">
-        <div className="w-full">
+      <div className="flex ml-4 mr-4">
+        <div>
+          <p className="text-yellow-500 text-2xl">{data?.data?.title}</p>
           <BroadDetailVideo streamer={data?.data?.streamer} />
           <div className="flex justify-between items-center py-2">
-            <p className="text-yellow-500">현재 참여자: {viewerCount} 명</p>
+            <p className="text-yellow-500 ">현재 참여자: {viewerCount} 명</p>
             {/* <button
               type="button"
               className="bg-blue-500 text-white py-2 px-4 rounded"
@@ -55,9 +56,8 @@ const BroadDetail = () => {
             </button> */}
           </div>
         </div>
-        <div className="bg-white">
-          <ChatComponent roomId={params.id as string} />
-        </div>
+
+        <ChatComponent roomId={params.id as string} />
       </div>
     </div>
   );
