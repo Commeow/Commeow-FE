@@ -2,18 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IList } from './BroadListComponent';
 
-const BroadCard = ({ channelId, streamer, title }: IList) => {
+const BroadCard = ({ channelId, streamer, title, thumbnailFiles }: IList) => {
   const navigate = useNavigate();
   const intoBroadDetail = () => {
     navigate(`/broadcasts/${channelId}`);
   };
 
   return (
-    <div onClick={intoBroadDetail} className="w-34 h-34">
-      <div className="bg-defaultList bg-cover bg-center bg-no-repeat w-44 h-44" />
+    <div onClick={intoBroadDetail}>
+      <img
+        src={`data:image/jpeg;base64, ${thumbnailFiles[0]?.fileImg}`}
+        alt="thumbnail"
+      />
+
       <div>
-        <p>{title}</p>
-        <p>{streamer}</p>
+        <p className="text-white">{title}</p>
+        <p className="text-yellow-500">{streamer}</p>
       </div>
     </div>
   );

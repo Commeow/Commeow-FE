@@ -9,7 +9,7 @@ const BroadDetailVideo = ({ streamer }: IBroadDetail) => {
   //   'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8';
 
   return (
-    <div className="w-3/4 h-2/3">
+    <div>
       <ReactPlayer
         url={hlsUrl}
         controls
