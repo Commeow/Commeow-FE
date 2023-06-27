@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import api from '../shared/api';
 
 interface ISignup {
@@ -20,7 +19,6 @@ const SignUpComponent = ({
     password: '',
   });
   const { userId, nickname, password } = inputValue;
-  const navigate = useNavigate();
 
   const onChangeHandle = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -40,7 +38,8 @@ const SignUpComponent = ({
     try {
       await api.post('/members/signup', inputValue);
       onAccess(false);
-      navigate('/login');
+      setSignupModal(false);
+      setLoginModal(true);
     } catch (error: any) {
       setErrorCheck(error.response.data);
     }

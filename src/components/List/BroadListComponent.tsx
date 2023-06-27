@@ -1,4 +1,3 @@
-import React from 'react';
 import { useQuery } from 'react-query';
 import api from '../../shared/api';
 import BroadCard from './BroadCard';
@@ -19,11 +18,10 @@ const BroadListComponent = () => {
     const response = await api.get('/broadcasts');
     return response;
   };
-  const { data, isLoading } = useQuery('getBroadList', getBroadList);
-  console.log('broadListData::::', data?.data);
+  const { data } = useQuery('getBroadList', getBroadList);
 
   return (
-    <div className="flex">
+    <div className="flex gap-8 p-8">
       {data?.data.map((item: IList) => (
         <BroadCard
           key={item.channelId}

@@ -8,22 +8,17 @@ import {
 } from '../components/Detail/AtomStore';
 import BroadDetailVideo from '../components/Detail/BroadDetailVideo';
 import ChatComponent from '../components/Detail/ChatComponent';
-import Donation from '../components/Detail/Donation';
-import ModalPortal from '../shared/ModalPortal';
+
 import api from '../shared/api';
 
 export interface IBroadDetail {
   // channelId: number;
   // chattingAddress: string;
   streamer: string;
-
-  // title: string;
 }
 
 const BroadDetail = () => {
-  const [donation, setDonation] = useState(false);
   const [viewerCount] = useAtom(viewerCountAtom);
-  const [, setDonationModalIsOpen] = useAtom(handleDonationModalOpenAtom);
   const params = useParams();
 
   const getBroadDetail = async () => {
@@ -33,27 +28,15 @@ const BroadDetail = () => {
   const { data } = useQuery('getBroadDetail', getBroadDetail, {
     refetchOnWindowFocus: false,
   });
-  console.log('detailData::::', data);
-
-  const handleModal = (newValue: boolean) => {
-    setDonation(newValue);
-  };
 
   return (
-    <div>
-      <div className="flex ml-4 mr-4">
+    <div className="flex justify-center">
+      <div className="flex ml-4 mr-4 mt-2 w-11/12 h-11/12 ">
         <div>
           <p className="text-yellow-500 text-2xl">{data?.data?.title}</p>
           <BroadDetailVideo streamer={data?.data?.streamer} />
           <div className="flex justify-between items-center py-2">
             <p className="text-yellow-500 ">현재 참여자: {viewerCount} 명</p>
-            {/* <button
-              type="button"
-              className="bg-blue-500 text-white py-2 px-4 rounded"
-              onClick={() => setDonationModalIsOpen(true)}
-            >
-              충전하기
-            </button> */}
           </div>
         </div>
 

@@ -57,7 +57,7 @@ const LoginComponent = ({
       setIsLogin(true);
       onAccess(false);
 
-      navigate('/');
+      // navigate('/');
     } catch (error: any) {
       setErrorCheck(error.response.data);
     }

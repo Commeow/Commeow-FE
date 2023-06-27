@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../shared/api';
+import ModalSecondPortal from '../../shared/ModalSecondPortal';
+import SnackBar from '../../shared/SnackBar';
 
 interface IPayment {
   onAccess: (newValue: boolean) => void;
@@ -8,6 +10,8 @@ interface IPayment {
 const Payment = ({ onAccess }: IPayment) => {
   const [churOption, setChurOption] = useState('100츄르');
   const [churAmount, setChurAmount] = useState(1200);
+  const [payFailModal, setPayFailModal] = useState(false);
+  const [paySucModal, setPaySucModal] = useState(false);
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -48,7 +52,7 @@ const Payment = ({ onAccess }: IPayment) => {
             null
           );
           if (rsp.paid_amount === verifyData.response.amount) {
-            alert('결제가 완료되었습니다.');
+            setPaySucModal(true);
             const requestBody = {
               points: parseInt(
                 churOption.substring(0, churOption.length - 2),
@@ -63,22 +67,35 @@ const Payment = ({ onAccess }: IPayment) => {
 
               const { data } = await api.post('/points/charge', requestBody);
               localStorage.setItem('point', data);
-              onAccess(false);
+              setTimeout(() => {
+                onAccess(false);
+              }, 1500);
             } catch (error) {
               console.error('Error while points request:', error);
             }
           } else {
-            alert('결제가 실패했습니다.');
+            setPayFailModal(true);
           }
         } catch (error) {
           console.error('Error while verifying payment:', error);
-          alert('결제가 실패했습니다.');
+          setPayFailModal(true);
         }
       }
     );
   };
   return (
     <div className="w-full h-screen flex justify-center items-center bg-modalOuter">
+      {payFailModal && (
+        <ModalSecondPortal>
+          <SnackBar newValue="결제가 취소되었습니다" />
+        </ModalSecondPortal>
+      )}
+      {paySucModal && (
+        <ModalSecondPortal>
+          <SnackBar newValue="결제가 완료되었습니다" />
+        </ModalSecondPortal>
+      )}
+
       <div className="bg-mainBlack w-2/5 h-1/5 rounded-lg relative flex flex-col items-center justify-center gap-5">
         <h3 className="text-yellow-500 text-2xl font-bold ">
           츄르 상점 o(〃＾▽＾〃)o

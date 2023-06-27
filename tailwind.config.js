@@ -9,6 +9,7 @@ module.exports = {
       },
       colors: {
         mainBlack: 'rgb(24,24,27)',
+        headerBlack: 'rgba(0,0,0,0.2)',
         modalOuter: 'rgba(0,0,0,0.5)',
       },
     },

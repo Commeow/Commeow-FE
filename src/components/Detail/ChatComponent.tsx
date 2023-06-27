@@ -15,7 +15,6 @@ import { FaPaw } from 'react-icons/fa';
 import { donationModalOpenAtom, handleViewerCountAtom } from './AtomStore';
 import { EchoResponder } from './responder';
 import { Modal } from '../../shared/Modal';
-import Payment from '../Payment/Payment';
 
 interface Message {
   type: string;
@@ -72,9 +71,9 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
     try {
       const response = await axios.get(
         `http://3.34.163.123:8080/broadcasts/${roomId}`,
-        { headers }
+        { headers } // 체크
       );
-      console.log(response.data);
+
       setStreamer(response.data.streamer);
       setChattingAddress(response.data.chattingAddress);
     } catch (error) {
@@ -84,13 +83,15 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
 
   const closeSocket = () => {
     if (socket) {
-      console.log('disconnect');
       socket.close();
     }
   };
 
   const send = () => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      toast.error('로그인이 필요한 서비스입니다.');
+      return;
+    }
     if (!message.trim()) return;
     const sendData: Message = {
       type: 'MESSAGE',
@@ -144,21 +145,20 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
   };
 
   const socketConnect = () => {
-    if (client && !socket)
+    if (client && !socket) {
       client.connect().subscribe({
         onComplete: (reactiveSocket) => {
-          console.log('소켓 연결됨');
           setSocket(reactiveSocket);
           subscribeToParticipantCount();
         },
         onError: (error) => {
           toast.error(error.message);
         },
-        onSubscribe: (cancel) => {
-          console.log(cancel);
-        },
+        onSubscribe: (cancel) => {},
       });
+    }
   };
+  console.log('cookie:::::::::', Cookies.get('accesstoken'));
 
   const handleDonationAmountChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -172,6 +172,11 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
       return;
     }
     if (!donationAmount) return;
+    if (Number(donationAmount) <= 0) {
+      toast.error('1 츄르부터 후원할 수 있습니다.');
+      setDonationAmount('');
+      return;
+    }
     const donationData: DonationData = {
       type: 'DONATION',
       streamer,
@@ -187,15 +192,15 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
       })
       .subscribe({
         onComplete: (com: any) => {
-          console.log('com : ', com);
+          console.log('donationcom : ', com);
           setDropdownIsOpen(false);
+          setDonationAmount('');
+          setDonationMessage('');
         },
         onError: (error: any) => {
           toast.error(error.source.message);
         },
-        onSubscribe: (cancel: any) => {
-          console.log('cancel', cancel);
-        },
+        onSubscribe: (cancel: any) => {},
       });
   };
 
@@ -296,10 +301,11 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
   return (
     <>
       <div
-        className="p-4 relative border border-gray-300 rounded-lg ml-2 bg-white"
+        className="p-4 relative border border-gray-300 rounded-lg  bg-white"
         ref={dropdownRef}
       >
         <h1 className="text-2xl font-bold mb-4">채팅</h1>
