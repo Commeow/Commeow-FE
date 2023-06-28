@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 import api from '../../shared/api';
 import ModalSecondPortal from '../../shared/ModalSecondPortal';
@@ -66,7 +67,8 @@ const Payment = ({ onAccess }: IPayment) => {
               );
 
               const { data } = await api.post('/points/charge', requestBody);
-              localStorage.setItem('point', data);
+              // localStorage.setItem('point', data);
+              Cookies.set('points', data);
               setTimeout(() => {
                 onAccess(false);
               }, 1500);

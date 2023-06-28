@@ -29,5 +29,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'no-useless-return': 'off',
     'react/jsx-no-useless-fragment': 'off',
+    'global-require': 'off',
   },
 };

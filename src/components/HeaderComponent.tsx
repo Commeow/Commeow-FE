@@ -8,6 +8,8 @@ import SnackBar from '../shared/SnackBar';
 import LoginComponent from './LoginComponent';
 import Payment from './Payment/Payment';
 import SignUpComponent from './SignUpComponent';
+import MyChannel from '../pages/MyChannel';
+import MyMenuModal from './MyMenuModal';
 
 export const countAtom = atom<number>(0);
 
@@ -17,6 +19,8 @@ const HeaderComponent = () => {
   const [paymentModal, setPaymentModal] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [logoutSnack, setLogoutSnack] = useState(false);
+
+  const [myMenuModal, setMyMenuModal] = useState(false);
   const navigate = useNavigate();
 
   const accessValid = Cookies.get('accesstoken');
@@ -27,23 +31,6 @@ const HeaderComponent = () => {
     }
   }, []);
 
-  const logoutHandle = async () => {
-    try {
-      await api.get('/members/logout');
-      Cookies.remove('accesstoken');
-      Cookies.remove('refreshtoken');
-      Cookies.remove('streamkey');
-      localStorage.removeItem('point');
-
-      setIsLogin(false);
-      setLogoutSnack(true);
-    } catch (error) {
-      Cookies.remove('accesstoken');
-      Cookies.remove('refreshtoken');
-      Cookies.remove('streamkey');
-      localStorage.removeItem('point');
-    }
-  };
   const handleSignModal = (newValue: boolean) => {
     setSignupModal(newValue);
   };
@@ -53,28 +40,62 @@ const HeaderComponent = () => {
   const handlePaymentModal = (newValue: boolean) => {
     setPaymentModal(newValue);
   };
+  const handleMyMenuModal = () => {
+    setMyMenuModal((prev) => !prev);
+  };
 
   return (
-    <div className="w-full h-14 flex justify-between items-center bg-headerBlack border-b-1 border-black">
-      {logoutSnack && (
-        <ModalPortal>
-          <SnackBar newValue="로그아웃 되었습니다" />
-        </ModalPortal>
-      )}
+    <div className="w-full h-14 flex justify-between items-center bg-white border-b-1 border-black ">
       <div
-        className="bg-mainlogo bg-center bg-cover bg-no-repeat w-32 h-14 ml-5 cursor-pointer"
+        className="bg-mainlogo bg-center bg-cover bg-no-repeat w-56 h-14 ml-5 cursor-pointer"
         onClick={() => navigate('/')}
       />
       <div className="mr-8">
         {isLogin && (
-          <button
-            type="button"
-            onClick={() => setPaymentModal(true)}
-            className="bg-yellow-500 w-20 h-8 font-semibold rounded"
-          >
-            츄르구매
-          </button>
+          // <button
+          //   type="button"
+          //   onClick={() => setPaymentModal(true)}
+          //   className="bg-yellow-500 w-20 h-8 font-medium rounded"
+          // >
+          //   츄르구매
+          // </button>
+          <div className="flex">
+            <div
+              className="bg-chur bg-cover bg-center bg-no-repeat w-14 h-14 cursor-pointer"
+              onClick={() => setPaymentModal(true)}
+            />
+            <div
+              className="bg-userImg bg-cover bg-no-repeat bg-center w-14 h-14 cursor-pointer"
+              onClick={handleMyMenuModal}
+            />
+          </div>
         )}
+        {myMenuModal && (
+          <ModalPortal>
+            <MyMenuModal
+              setIsLogin={setIsLogin}
+              setMyMenuModal={setMyMenuModal}
+              setLogoutSnack={setLogoutSnack}
+            />
+          </ModalPortal>
+        )}
+
+        {logoutSnack && (
+          <ModalPortal>
+            <SnackBar newValue="로그아웃 되었습니다" />
+          </ModalPortal>
+        )}
+
+        {/* {isLogin && (
+          // <button
+          //   type="button"
+          //   onClick={logoutHandle}
+          //   className="bg-yellow-500 w-20 h-8 ml-3 font-medium rounded"
+          // >
+          //   로그아웃
+          // </button>
+    
+        )} */}
         {paymentModal && (
           <ModalPortal>
             <Payment onAccess={handlePaymentModal} />
@@ -84,7 +105,7 @@ const HeaderComponent = () => {
           <button
             type="button"
             onClick={() => setLoginModal(true)}
-            className="bg-yellow-500 w-20 h-8 font-semibold rounded"
+            className="bg-yellow-500 w-20 h-8 rounded font-medium"
           >
             로그인
           </button>
@@ -104,7 +125,7 @@ const HeaderComponent = () => {
           <button
             type="button"
             onClick={() => setSignupModal(true)}
-            className="bg-yellow-500 w-20 h-8 ml-3 font-semibold rounded"
+            className="bg-yellow-500 w-20 h-8 ml-3 font-medium rounded"
           >
             회원가입
           </button>
@@ -117,15 +138,6 @@ const HeaderComponent = () => {
               setLoginModal={setLoginModal}
             />
           </ModalPortal>
-        )}
-        {isLogin && (
-          <button
-            type="button"
-            onClick={logoutHandle}
-            className="bg-yellow-500 w-20 h-8 ml-3 font-semibold rounded"
-          >
-            로그아웃
-          </button>
         )}
       </div>
     </div>

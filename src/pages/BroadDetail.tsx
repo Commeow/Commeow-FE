@@ -31,12 +31,26 @@ const BroadDetail = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex ml-4 mr-4 mt-2 w-11/12 h-11/12 ">
+      <div className="flex ml-4 mr-4 mt-4  gap-3 justify-center">
         <div>
-          <p className="text-yellow-500 text-2xl">{data?.data?.title}</p>
+          <div className="flex gap-3 mb-4">
+            <div className="bg-live bg-center bg-cover bg-no-repeat w-20 h-8" />
+            <p className="text-yellow-500 text-2xl">{data?.data?.title}</p>
+          </div>
+
           <BroadDetailVideo streamer={data?.data?.streamer} />
+
           <div className="flex justify-between items-center py-2">
-            <p className="text-yellow-500 ">현재 참여자: {viewerCount} 명</p>
+            <div className="bg-defaultList bg-center bg-cover bg-no-repeat w-20 h-20" />
+            <div>
+              <button
+                type="button"
+                className="bg-yellow-500 w-16 h-7 rounded-md text-lg ml-11 mb-2"
+              >
+                구독
+              </button>
+              <p className="text-yellow-500 ml-7">참여자: {viewerCount} 명</p>
+            </div>
           </div>
         </div>
 
