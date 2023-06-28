@@ -24,7 +24,7 @@ const BroadListComponent = () => {
     <div className="flex">
       <div className="bg-zinc-800 h-screen w-1/5 pt-8 pl-3">
         <p className="text-yellow-500 text-2xl ">구독 중인 채널</p>
-        <div className="bg-yellow-500 w-60 h-2/5 rounded-md mt-4">
+        <div className="bg-yellow-500 w-[90%] h-2/5 rounded-md mt-4">
           <div className="bg-defaultList bg-center bg-cover bg-no-repeat w-16 h-16" />
         </div>
       </div>

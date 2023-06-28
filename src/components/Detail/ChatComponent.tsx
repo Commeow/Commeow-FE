@@ -373,7 +373,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
           </div>
         )} */}
         {dropdownIsOpen && (
-          <div className="mt-4 absolute bottom-20 bg-white rounded-lg border border-gray-300 shadow-md p-4 w-[300px]">
+          <div className="mt-4 absolute bottom-20 bg-white rounded-lg border border-gray-300 shadow-md p-4 w-[320px]">
             <div className="flex items-center mb-2">
               <h2 className="text-lg font-bold ">후원하기</h2>
               <span className="text-sm ml-24">보유</span>

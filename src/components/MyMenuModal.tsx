@@ -32,6 +32,7 @@ const MyMenuModal = ({
       setIsLogin(false);
       setLogoutSnack(true);
       setMyMenuModal(false);
+      navigate('/');
     } catch (error) {
       const axiosError = error as AxiosError;
       console.log('로그아웃 에러::', axiosError?.response?.status);

@@ -7,6 +7,7 @@ module.exports = {
         mainlogo: "url('./assets/commeow.png')",
         defaultList: "url('./assets/defaultListImg.png')",
         defaultList2: "url('./assets/defaultList2.png')",
+        defaultList3: "url('./assets/cat.png')",
         chur: "url('./assets/chur.png')",
         live: "url('./assets/live.png')",
         userImg: "url('./assets/user.png')",

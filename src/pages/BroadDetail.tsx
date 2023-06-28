@@ -1,4 +1,5 @@
 import { useAtom } from 'jotai';
+import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
@@ -20,6 +21,7 @@ export interface IBroadDetail {
 const BroadDetail = () => {
   const [viewerCount] = useAtom(viewerCountAtom);
   const params = useParams();
+  const userId = Cookies.get('userId');
 
   const getBroadDetail = async () => {
     const response = await api.get(`/broadcasts/${params.id}`);
@@ -41,7 +43,10 @@ const BroadDetail = () => {
           <BroadDetailVideo streamer={data?.data?.streamer} />
 
           <div className="flex justify-between items-center py-2">
-            <div className="bg-defaultList bg-center bg-cover bg-no-repeat w-20 h-20" />
+            <div className="flex items-center">
+              <div className="bg-defaultList bg-center bg-cover bg-no-repeat w-20 h-20" />
+              <p className="text-yellow-500 text-[20px]">{userId}</p>
+            </div>
             <div>
               <button
                 type="button"
