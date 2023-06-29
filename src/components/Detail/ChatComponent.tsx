@@ -292,7 +292,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
     scrollToBottom();
   });
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !isKeyDown) {
+    if (e.key === 'Enter' && e.keyCode !== 229) {
       setIsKeyDown(true);
       send();
     }

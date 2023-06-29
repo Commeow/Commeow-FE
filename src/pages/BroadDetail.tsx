@@ -30,6 +30,7 @@ const BroadDetail = () => {
   const { data } = useQuery('getBroadDetail', getBroadDetail, {
     refetchOnWindowFocus: false,
   });
+  console.log('상세페이지 데이터', data?.data.streamer);
 
   return (
     <div className="flex justify-center">
@@ -45,7 +46,9 @@ const BroadDetail = () => {
           <div className="flex justify-between items-center py-2">
             <div className="flex items-center">
               <div className="bg-defaultList bg-center bg-cover bg-no-repeat w-20 h-20" />
-              <p className="text-yellow-500 text-[20px]">{userId}</p>
+              <p className="text-yellow-500 text-[20px]">
+                {data?.data.streamer}
+              </p>
             </div>
             <div>
               <button
