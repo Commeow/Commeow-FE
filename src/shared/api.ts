@@ -22,6 +22,32 @@ api.interceptors.request.use(
   }
 );
 
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const {
+      response: {
+        data: { status },
+      },
+    } = error;
+
+    if (status === 500) {
+      toast.error('로그인 만료시간이 끝났습니다.');
+      Cookies.remove('accesstoken');
+      Cookies.remove('refreshtoken');
+      Cookies.remove('streamkey');
+      Cookies.remove('points');
+      Cookies.remove('userId');
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 3000);
+    }
+
+    return Promise.reject(error);
+  }
+);
 // api.interceptors.response.use(
 //   (response) => {
 //     return response;

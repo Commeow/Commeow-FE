@@ -34,15 +34,15 @@ const MyMenuModal = ({
       const axiosError = error as AxiosError;
       console.log('마이메뉴 로그아웃 에러:::', axiosError);
 
-      // Cookies.remove('accesstoken');
-      // Cookies.remove('refreshtoken');
-      // Cookies.remove('streamkey');
-      // Cookies.remove('points');
-      // Cookies.remove('userId');
+      Cookies.remove('accesstoken');
+      Cookies.remove('refreshtoken');
+      Cookies.remove('streamkey');
+      Cookies.remove('points');
+      Cookies.remove('userId');
 
-      // setIsLogin(false);
-      // setLogoutSnack(true);
-      // setMyMenuModal(false);
+      setIsLogin(false);
+      setLogoutSnack(true);
+      setMyMenuModal(false);
     }
   };
 
