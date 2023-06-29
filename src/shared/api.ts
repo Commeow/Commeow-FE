@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
@@ -13,11 +14,58 @@ api.interceptors.request.use(
     if (accesstoken) {
       config.headers.Access_Token = `Bearer ${accesstoken}`;
     }
-    console.log('서버요청한다:::::::::', config);
+
     return config;
   },
   (error) => {
-    // console.log('api요청전에러::::', error);
+    return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const {
+      config,
+      response: {
+        data: { status, message },
+      },
+    } = error;
+
+    if (status === 500) {
+      const refresh = Cookies.get('refreshtoken');
+
+      const originReq = config;
+
+      await api
+        .get('/members/logout', {
+          headers: { Refresh_Token: `Bearer ${refresh}` },
+        })
+        .then((response) => {
+          const { access_token: newAccessToken } = response.headers;
+          Cookies.set('accesstoken', newAccessToken.split(' ')[1]);
+        });
+
+      const newAccessToken = Cookies.get('accesstoken');
+      originReq.headers.Access_Token = `Bearer ${newAccessToken}`;
+
+      return api(originReq);
+    }
+
+    if (message === '유효한 토큰이 없습니다.') {
+      Cookies.remove('accesstoken');
+      Cookies.remove('refreshtoken');
+      Cookies.remove('streamkey');
+      Cookies.remove('points');
+      Cookies.remove('userId');
+      toast.error('로그인이 만료되었습니다. 재로그인 해주세요');
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 3000);
+    }
+
     return Promise.reject(error);
   }
 );
