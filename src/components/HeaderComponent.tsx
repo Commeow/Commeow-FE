@@ -1,14 +1,12 @@
 import Cookies from 'js-cookie';
 import { atom } from 'jotai';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../shared/api';
 import ModalPortal from '../shared/ModalPortal';
 import SnackBar from '../shared/SnackBar';
 import LoginComponent from './LoginComponent';
 import Payment from './Payment/Payment';
 import SignUpComponent from './SignUpComponent';
-import MyChannel from '../pages/MyChannel';
 import MyMenuModal from './MyMenuModal';
 
 export const countAtom = atom<number>(0);
@@ -52,13 +50,6 @@ const HeaderComponent = () => {
       />
       <div className="mr-8">
         {isLogin && (
-          // <button
-          //   type="button"
-          //   onClick={() => setPaymentModal(true)}
-          //   className="bg-yellow-500 w-20 h-8 font-medium rounded"
-          // >
-          //   츄르구매
-          // </button>
           <div className="flex">
             <div
               className="bg-chur bg-cover bg-center bg-no-repeat w-14 h-14 cursor-pointer"
@@ -86,16 +77,6 @@ const HeaderComponent = () => {
           </ModalPortal>
         )}
 
-        {/* {isLogin && (
-          // <button
-          //   type="button"
-          //   onClick={logoutHandle}
-          //   className="bg-yellow-500 w-20 h-8 ml-3 font-medium rounded"
-          // >
-          //   로그아웃
-          // </button>
-    
-        )} */}
         {paymentModal && (
           <ModalPortal>
             <Payment onAccess={handlePaymentModal} />

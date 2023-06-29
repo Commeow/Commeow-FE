@@ -67,7 +67,6 @@ const Payment = ({ onAccess }: IPayment) => {
               );
 
               const { data } = await api.post('/points/charge', requestBody);
-              // localStorage.setItem('point', data);
               Cookies.set('points', data);
               setTimeout(() => {
                 onAccess(false);

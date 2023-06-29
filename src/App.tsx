@@ -1,10 +1,8 @@
-import React from 'react';
 import './App.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ToastContainer, ToastPosition } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Router from './shared/Router';
-// import HeaderComponent from './components/HeaderComponent';
 
 const queryClient = new QueryClient();
 const toastConfig = {

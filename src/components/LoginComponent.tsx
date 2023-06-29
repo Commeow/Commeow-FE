@@ -22,7 +22,6 @@ const LoginComponent = ({
     password: '',
   });
   const { userId, password } = inputValue;
-  const navigate = useNavigate();
 
   const onChangeHandle = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -41,7 +40,6 @@ const LoginComponent = ({
   const loginHandle = async () => {
     try {
       const response = await api.post('/members/login', inputValue);
-      console.log('loginRes:::', response);
 
       const accessHeader = response?.headers?.access_token;
       const refreshHeader = response?.headers?.refresh_token;
@@ -57,12 +55,9 @@ const LoginComponent = ({
       Cookies.set('streamkey', streamkeyData);
       Cookies.set('points', points);
       Cookies.set('userId', userIdkey);
-      // Cookies.set('userId', userIdkey);
 
       setIsLogin(true);
       onAccess(false);
-
-      // navigate('/');
     } catch (error: any) {
       setErrorCheck(error.response.data);
     }

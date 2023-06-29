@@ -1,11 +1,8 @@
 import { AxiosError } from 'axios';
 import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../shared/api';
-import ModalPortal from '../shared/ModalPortal';
-import ModalSecondPortal from '../shared/ModalSecondPortal';
-import SnackBar from '../shared/SnackBar';
 
 interface IMyMenu {
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -35,7 +32,6 @@ const MyMenuModal = ({
       navigate('/');
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log('로그아웃 에러::', axiosError?.response?.status);
 
       if (axiosError?.response?.status === 401) {
         Cookies.remove('accesstoken');

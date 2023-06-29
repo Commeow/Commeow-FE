@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { IList } from './BroadListComponent';
 
@@ -7,7 +6,6 @@ const BroadCard = ({ channelId, streamer, title, thumbnailFiles }: IList) => {
   const intoBroadDetail = () => {
     navigate(`/broadcasts/${channelId}`);
   };
-  // const userId = Cookies.get('userId');
 
   return (
     <div onClick={intoBroadDetail} className="w-1/4">
@@ -24,7 +22,6 @@ const BroadCard = ({ channelId, streamer, title, thumbnailFiles }: IList) => {
       <div>
         <p className="text-white mt-3 mb-1">{title}</p>
         <span className="text-yellow-500">{streamer}</span>
-        {/* <span className="text-yellow-500 ml-4">({userId})</span> */}
       </div>
     </div>
   );

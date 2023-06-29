@@ -73,7 +73,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
     try {
       const response = await axios.get(
         `http://3.34.163.123:8080/broadcasts/${roomId}`,
-        { headers } // 체크
+        { headers }
       );
 
       setStreamer(response.data.streamer);
@@ -160,7 +160,6 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
       });
     }
   };
-  console.log('cookie:::::::::', Cookies.get('accesstoken'));
 
   const handleDonationAmountChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -312,8 +311,6 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
         className="p-2 relative border border-gray-300 rounded-lg  bg-white h-[80%]"
         ref={dropdownRef}
       >
-        {/* <h1 className="text-2xl font-bold mb-4">채팅</h1> */}
-        {/* <p className="mb-4">현재 참여자: {participantCount} 명</p> */}
         <div className="h-[100vh]">
           <div className="h-[73%]" style={{ overflow: 'overlay' }}>
             <div
@@ -367,11 +364,7 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
             전송
           </button>
         </div>
-        {/* {donationMessage && (
-          <div className="bg-green-200 text-green-800 p-2 mt-2">
-            {donationMessage}
-          </div>
-        )} */}
+
         {dropdownIsOpen && (
           <div className="mt-4 absolute bottom-20 bg-white rounded-lg border border-gray-300 shadow-md p-4 w-[320px]">
             <div className="flex items-center mb-2">
@@ -406,9 +399,6 @@ const ChatComponent = ({ roomId }: { roomId: string }) => {
           </div>
         )}
       </div>
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} hasOverlay>
-        <div className="rounded bg-white p-4">{/* <Payment /> */}</div>
-      </Modal>
     </>
   );
 };

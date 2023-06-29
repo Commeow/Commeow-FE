@@ -1,27 +1,19 @@
 import { useAtom } from 'jotai';
-import Cookies from 'js-cookie';
-import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
-import {
-  handleDonationModalOpenAtom,
-  viewerCountAtom,
-} from '../components/Detail/AtomStore';
+import { viewerCountAtom } from '../components/Detail/AtomStore';
 import BroadDetailVideo from '../components/Detail/BroadDetailVideo';
 import ChatComponent from '../components/Detail/ChatComponent';
 
 import api from '../shared/api';
 
 export interface IBroadDetail {
-  // channelId: number;
-  // chattingAddress: string;
   streamer: string;
 }
 
 const BroadDetail = () => {
   const [viewerCount] = useAtom(viewerCountAtom);
   const params = useParams();
-  const userId = Cookies.get('userId');
 
   const getBroadDetail = async () => {
     const response = await api.get(`/broadcasts/${params.id}`);
@@ -30,7 +22,6 @@ const BroadDetail = () => {
   const { data } = useQuery('getBroadDetail', getBroadDetail, {
     refetchOnWindowFocus: false,
   });
-  console.log('상세페이지 데이터', data?.data.streamer);
 
   return (
     <div className="flex justify-center">
