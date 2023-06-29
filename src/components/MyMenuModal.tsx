@@ -32,19 +32,17 @@ const MyMenuModal = ({
       navigate('/');
     } catch (error) {
       const axiosError = error as AxiosError;
-      console.log(axiosError);
+      console.log('마이메뉴 로그아웃 에러:::', axiosError);
 
-      // if (axiosError?.response?.status === 401) {
-      //   Cookies.remove('accesstoken');
-      //   Cookies.remove('refreshtoken');
-      //   Cookies.remove('streamkey');
-      //   Cookies.remove('points');
-      //   Cookies.remove('userId');
+      // Cookies.remove('accesstoken');
+      // Cookies.remove('refreshtoken');
+      // Cookies.remove('streamkey');
+      // Cookies.remove('points');
+      // Cookies.remove('userId');
 
-      //   setIsLogin(false);
-      //   setLogoutSnack(true);
-      //   setMyMenuModal(false);
-      // }
+      // setIsLogin(false);
+      // setLogoutSnack(true);
+      // setMyMenuModal(false);
     }
   };
 

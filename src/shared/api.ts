@@ -33,6 +33,7 @@ api.interceptors.response.use(
         data: { status, message },
       },
     } = error;
+    console.log('인터셉터 에러 콘솔::', error);
 
     if (status === 500) {
       const refresh = Cookies.get('refreshtoken');
@@ -46,7 +47,10 @@ api.interceptors.response.use(
         .then((response) => {
           const { access_token: newAccessToken } = response.headers;
           Cookies.set('accesstoken', newAccessToken.split(' ')[1]);
+          console.log('로그아웃통신 res::', response);
         });
+
+      console.log('여기까지 들어오나');
 
       const newAccessToken = Cookies.get('accesstoken');
       originReq.headers.Access_Token = `Bearer ${newAccessToken}`;
